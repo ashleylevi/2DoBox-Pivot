@@ -3,8 +3,9 @@ var body = $('#body-input').val();
 var numCards = 0;
 var qualityVariable = "swill";
 
+// card content
 var newCard = function(id , title , body , quality) {
-    return '<div id="${id}" class="card-container"><h2 class="title-of-card">'  
+    return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
             + title +  '</h2>'
             + '<button class="delete-button"></button>'
             +'<p class="body-of-card">'
@@ -16,6 +17,7 @@ var newCard = function(id , title , body , quality) {
             + '</div>';
 };
 
+
 function cardObject() {
     return {
         title: $('#title-input').val(),
@@ -25,7 +27,6 @@ function cardObject() {
 }
 
 $.each(localStorage, function(key) {
-    debugger
     var cardData = JSON.parse(this);
     numCards++;
     $( ".bottom-box" ).prepend(newCard(key, cardData.title, cardData.body, cardData.quality));
@@ -94,14 +95,3 @@ $(".bottom-box").on('click', function(event){
         localStorage.removeItem(cardHTMLId);
     }
 });
-      
-
-
-
-
-
-
-
-
-
-
