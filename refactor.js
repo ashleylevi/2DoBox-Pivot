@@ -63,12 +63,16 @@ $(".bottom-box").on('click', deleteIdea);
 // $(".bottom-box").on('click', upvoteQuality);
 // // $(".bottom-box").on('click', downvoteQuality);
 
-//function to delete idea
+
+//function to get card
+
+
+//function to delete card
 function deleteIdea(event) {
   if (event.target.className === "delete-button") {
-        var cardHTML = $(event.target).closest('.card-container').remove();
-        var cardHTMLId = cardHTML[0].id;
-        localStorage.removeItem(cardHTMLId);
+    var cardHTML = $(event.target).closest('.card-container').remove();
+    var cardHTMLId = cardHTML[0].id;
+    localStorage.removeItem(cardHTMLId);
 }
 }
 
