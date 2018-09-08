@@ -1,10 +1,11 @@
+getAllCardsFromStorage();
 
 //constructor function for all cards
 function CardObject(title, body) {
   this.title = title;
   this.body = body;
   this.qualityArray = ['swill', 'plausible', 'genius'];
-  this.qualityIndex = 0
+  this.qualityIndex = 0;
   this.id = Date.now();
 };
 
@@ -38,27 +39,55 @@ function addNewCard(card) {
 function localStoreCard(card) {
   var cardString = JSON.stringify(card);
   localStorage.setItem(card.id, cardString)
-  console.log('hi');
+ 
 }
+
+// function to get all cards back from local storage
+function getAllCardsFromStorage(event) {
+ for (var i=0; i < localStorage.length; i++) {
+    var cardId = localStorage.key(i);
+    var retrievedCardFromJson = localStorage.getItem(cardId);
+    var parsedCardObject= JSON.parse(retrievedCardFromJson);
+    addNewCard(parsedCardObject);
+}
+}
+
+
+ // var localArray = Object.keys(localStorage);
+ //  for (i = 0; i < localArray.length; i++) {
+ //    addNewCard(JSON.parse(localStorage.getItem(localArray[i])));
+ //  }
 
 //event listener on bottom half of the page
 $(".bottom-box").on('click', deleteIdea); 
-$(".bottom-box").on('click', upvoteQuality);
-// $(".bottom-box").on('click', downvoteQuality);
+// $(".bottom-box").on('click', upvoteQuality);
+// // $(".bottom-box").on('click', downvoteQuality);
 
 //function to delete idea
 function deleteIdea(event) {
   if (event.target.className === "delete-button") {
-     $(event.target).closest('.card-container').remove();
+        var cardHTML = $(event.target).closest('.card-container').remove();
+        var cardHTMLId = cardHTML[0].id;
+        localStorage.removeItem(cardHTMLId);
 }
 }
 
-//function to update quality on upvote
-function upvoteQuality(event) {
-  var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-  var qualityVariable;
+// function to update quality on upvote
+// function upvoteQuality(event) {
+//   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
+//   var qualityVariable;
 
-}
+//   var key= grab the id of the card, store it into 'key variable'
+//   var card = get card from local storage (getItem(key)); and parse it
+//   store the parsed card
+//   card.qualityindex++
+
+//   if card.index < 2 change text to plausible
+//     else change to genuys
+
+//       sotre card 
+
+// }
 
 //function to update quality on downvote
 
