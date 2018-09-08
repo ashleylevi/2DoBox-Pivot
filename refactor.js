@@ -59,8 +59,8 @@ function getAllCardsFromStorage(event) {
  //  }
 
 //event listener on bottom half of the page
-$(".bottom-box").on('click', deleteIdea); 
-// $(".bottom-box").on('click', upvoteQuality);
+$(".bottom-box").on('click', deleteCard); 
+$(".bottom-box").on('click', upvoteQuality);
 // // $(".bottom-box").on('click', downvoteQuality);
 
 
@@ -68,18 +68,26 @@ $(".bottom-box").on('click', deleteIdea);
 
 
 //function to delete card
-function deleteIdea(event) {
+function deleteCard(event) {
   if (event.target.className === "delete-button") {
-    var cardHTML = $(event.target).closest('.card-container').remove();
-    var cardHTMLId = cardHTML[0].id;
+    var cardId = $(event.target).closest('.card-container')[0].id;
     localStorage.removeItem(cardHTMLId);
 }
 }
 
 // function to update quality on upvote
-// function upvoteQuality(event) {
-//   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//   var qualityVariable;
+function upvoteQuality(event) {
+  var cardId = $(event.target).closest('.card-container')[0].id;
+  var parsedCardObject = JSON.parse(localStorage.getItem(cardId));
+  parsedCardObject.qualityIndex++;
+  stringifyCard =  JSON.stringify(parsedCardObject);
+  localStorage.setItem(cardId, stringifyCard);
+
+  // console.log(parsedCardObject.qualityIndex)
+  
+  // var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
+  // var qualityVariable;
+}
 
 //   var key= grab the id of the card, store it into 'key variable'
 //   var card = get card from local storage (getItem(key)); and parse it
