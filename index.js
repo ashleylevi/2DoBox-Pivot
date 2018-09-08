@@ -26,6 +26,8 @@ function cardObject() {
     };
 }
 
+
+// grab each card from local storage to prepend on the page
 $.each(localStorage, function(key) {
     var cardData = JSON.parse(this);
     numCards++;
