@@ -4,10 +4,6 @@
   font-family: 'Roboto Slab', serif;
 }
 
-/*.container-box {
-  margin: 0;
-}*/
-
 body {
   box-sizing: border-box;
   margin: 0;
@@ -32,7 +28,7 @@ h1{
   color: #00a79d;
 }
 
-#title-input {
+#title-input, #body-input {
   align-items: center;
   display: flex;
   height: 30px;
@@ -40,13 +36,6 @@ h1{
   width: 45%;
 }
 
-#body-input {
-  align-items: center;
-  display: flex;
-  height: 30px;
-  justify-content: space-between;
-  width: 45%;
-}
 
 #search-input {
   height: 30px;
@@ -119,35 +108,31 @@ button {
   border: none;
 }
 
-.upvote {
-  background-image: url(./images/upvote.svg);
+.button {
   background-size: cover;
   height: 20px;
-  margin-right: 5px; 
   width: 20px;
+
 }
 
-.upvote:hover {
+.upvote-button {
+  background-image: url(./images/upvote.svg);
+  margin-right: 5px; 
+}
+
+.upvote-button:hover {
   background-color: transparent;
   background-image: url(./images/upvote-hover.svg);
-  background-size: cover;
-  height: 20px;
-  width: 20px;
 }
 
-.downvote {
+
+.downvote-button {
   background-image: url(./images/downvote.svg);
-  background-size: cover;
-  height: 20px;
   margin-right: 5px; 
-  width: 20px;
 }
 
-.downvote:hover {
+.downvote-button:hover {
   background-image: url(./images/downvote-hover.svg);
-  background-size: cover;
-  height: 20px;
-  width: 20px;
 }
 
 .delete-button {

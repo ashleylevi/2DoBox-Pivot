@@ -1,5 +1,16 @@
 getAllCardsFromStorage();
 
+
+//keyup event listener on input fields
+$('#title-input').on('keyup', enableSubmitButton);
+$('#body-input').on('keyup', enableSubmitButton);
+//click event listener on save button
+$('.save-btn').on('click', createNewCard);
+//event listener on bottom half of the page
+$(".bottom-box").on('click', deleteCard); 
+$(".bottom-box").on('click', storeUpvoteQuality);
+$(".bottom-box").on('click', storeDownvoteQuality);
+
 //constructor function for all cards
 function CardObject(title, body) {
   this.title = title;
@@ -9,11 +20,6 @@ function CardObject(title, body) {
   this.id = Date.now();
 };
 
-//click event listener on save button
-$('.save-btn').on('click', createNewCard);
-$('#title-input').on('keyup', enableSubmitButton);
-$('#body-input').on('keyup', enableSubmitButton);
-
 //create instance of idea card to add to the page
 function createNewCard(event) {
   event.preventDefault();
@@ -21,6 +27,7 @@ function createNewCard(event) {
   addNewCard(card);
 }
 
+//enable submit button if both input fields are filled out
 function enableSubmitButton(event) {
   if ($('#title-input').val() === "" || $('#body-input').val() === "") {
        $('.save-btn').prop('disabled', true);
@@ -33,11 +40,11 @@ function enableSubmitButton(event) {
 function addNewCard(card) {
   var newCard = `
   <div id="${card.id}" class="card-container">
-  <h2 class="title-of-card">${card.title}</h2>
+  <h2 class="title-of-card" contenteditable="true" onfocusout="updateCardTitle(event)">${card.title}</h2>
   <button class="delete-button"></button>
-  <p class="body-of-card">${card.body}</p>
-  <button class="upvote"></button>
-  <button class="downvote"></button>
+  <p class="body-of-card" contenteditable="true" onfocusout="updateCardBody(event)">${card.body}</p>
+  <button class="button upvote-button"></button>
+  <button class="button downvote-button"></button>
   <p class="quality">quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p>
   <hr> 
   </div>`;
@@ -64,81 +71,33 @@ function getAllCardsFromStorage(event) {
 }
 
 
- // var localArray = Object.keys(localStorage);
- //  for (i = 0; i < localArray.length; i++) {
- //    addNewCard(JSON.parse(localStorage.getItem(localArray[i])));
- //  }
-
-//event listener on bottom half of the page
-$(".bottom-box").on('click', deleteCard); 
-$(".bottom-box").on('click', storeUpvoteQuality);
-// // $(".bottom-box").on('click', downvoteQuality);
-
-
-//function to get card
-
-
 //function to delete card
 function deleteCard(event) {
-  if (event.target.className === "delete-button") {
+  if ($(event.target).hasClass("delete-button")) {
     var cardContainer = $(event.target).closest('.card-container').remove();
     var cardId = cardContainer[0].id
     localStorage.removeItem(cardId);
-}
+  }
 }
 
 // function to update quality on upvote
 function storeUpvoteQuality(event) {
-  var cardId = $(event.target).closest('.card-container')[0].id;
-  var parsedCardObject = JSON.parse(localStorage.getItem(cardId));
-  parsedCardObject.qualityIndex++;
-
-  // if (parsedCardObject.qualityindex === 1) {
-  //   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text();
-  //   currentQuality.text('genius');
-
-  // }
-  // var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-
-  // if (currentQuality === parsedCardObject.qualityArray[0]) {
-  //   return currentQuality.text('plausible')
-  // }
-
-
-
-
-  stringifyCard =  JSON.stringify(parsedCardObject);
-  localStorage.setItem(cardId, stringifyCard);
+  if ($(event.target).hasClass("upvote-button")) {
+  var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
+  card.qualityIndex++;
+  if (card.qualityIndex > 2 ) card.qualityIndex = 2;
+  $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
+  localStoreCard(card)
+  }
 }
 
-
-
-
-  // console.log(parsedCardObject.qualityIndex)
-  
-  // var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-  // var qualityVariable;
-
-
-//   var key= grab the id of the card, store it into 'key variable'
-//   var card = get card from local storage (getItem(key)); and parse it
-//   store the parsed card
-//   card.qualityindex++
-
-//   if card.index < 2 change text to plausible
-//     else change to genuys
-
-//       sotre card 
-
-// }
-
-//function to update quality on downvote
-
-//function to loop through quality
-// function changeQuality() {
-//   var qualityArray = ['swill', 'plausible', 'genius'];
-//   for (i=0; i < qualityArray.length; i++) {
-//     return qualityArray[i];
-//   }
-
-// }
+// function to update quality on downvote
+function storeDownvoteQuality(event) {
+  if ($(event.target).hasClass("downvote-button")){
+  var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
+  card.qualityIndex--;
+  if (card.qualityIndex < 0 ) card.qualityIndex = 0;
+  $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
+  localStoreCard(card)
+  }
+}
