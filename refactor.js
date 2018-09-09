@@ -11,12 +11,22 @@ function CardObject(title, body) {
 
 //click event listener on save button
 $('.save-btn').on('click', createNewCard);
+$('#title-input').on('keyup', enableSubmitButton);
+$('#body-input').on('keyup', enableSubmitButton);
 
 //create instance of idea card to add to the page
 function createNewCard(event) {
   event.preventDefault();
   var card = new CardObject($('#title-input').val(), $('#body-input').val())
   addNewCard(card);
+}
+
+function enableSubmitButton(event) {
+  if ($('#title-input').val() === "" || $('#body-input').val() === "") {
+       $('.save-btn').prop('disabled', true);
+  } else {
+    $('.save-btn').prop('disabled', false);
+  } 
 }
 
 // create card to prepend to the page
@@ -33,6 +43,7 @@ function addNewCard(card) {
   </div>`;
   $(".bottom-box").prepend(newCard);
   localStoreCard(card);
+  $('form')[0].reset();
 };
 
 //function to store newly added card to local storage
@@ -60,7 +71,7 @@ function getAllCardsFromStorage(event) {
 
 //event listener on bottom half of the page
 $(".bottom-box").on('click', deleteCard); 
-$(".bottom-box").on('click', upvoteQuality);
+$(".bottom-box").on('click', storeUpvoteQuality);
 // // $(".bottom-box").on('click', downvoteQuality);
 
 
@@ -70,24 +81,44 @@ $(".bottom-box").on('click', upvoteQuality);
 //function to delete card
 function deleteCard(event) {
   if (event.target.className === "delete-button") {
-    var cardId = $(event.target).closest('.card-container')[0].id;
-    localStorage.removeItem(cardHTMLId);
+    var cardContainer = $(event.target).closest('.card-container').remove();
+    var cardId = cardContainer[0].id
+    localStorage.removeItem(cardId);
 }
 }
 
 // function to update quality on upvote
-function upvoteQuality(event) {
+function storeUpvoteQuality(event) {
   var cardId = $(event.target).closest('.card-container')[0].id;
   var parsedCardObject = JSON.parse(localStorage.getItem(cardId));
   parsedCardObject.qualityIndex++;
+
+  // if (parsedCardObject.qualityindex === 1) {
+  //   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text();
+  //   currentQuality.text('genius');
+
+  // }
+  // var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
+
+  // if (currentQuality === parsedCardObject.qualityArray[0]) {
+  //   return currentQuality.text('plausible')
+  // }
+
+
+
+
   stringifyCard =  JSON.stringify(parsedCardObject);
   localStorage.setItem(cardId, stringifyCard);
+}
+
+
+
 
   // console.log(parsedCardObject.qualityIndex)
   
   // var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
   // var qualityVariable;
-}
+
 
 //   var key= grab the id of the card, store it into 'key variable'
 //   var card = get card from local storage (getItem(key)); and parse it
@@ -111,12 +142,3 @@ function upvoteQuality(event) {
 //   }
 
 // }
-
-
-
-
-
-    
-
-
-
