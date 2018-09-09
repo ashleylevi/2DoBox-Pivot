@@ -111,3 +111,10 @@ function updateCardTitle(event) {
 
 };
 
+function updateCardBody(event) {
+  var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
+  var updatedBody = $(event.target).text();
+  card.body = updatedBody;
+  localStoreCard(card);
+
+};
