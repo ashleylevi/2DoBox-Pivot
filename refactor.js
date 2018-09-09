@@ -101,3 +101,13 @@ function storeDownvoteQuality(event) {
   localStoreCard(card)
   }
 }
+
+
+function updateCardTitle(event) {
+  var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
+  var updatedTitle = $(event.target).text();
+  card.title = updatedTitle;
+  localStoreCard(card);
+
+};
+
