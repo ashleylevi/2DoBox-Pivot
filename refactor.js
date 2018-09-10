@@ -1,13 +1,10 @@
 getAllCardsFromStorage();
 
-
-//keyup event listener on input fields
 $('#title-input').on('keyup', enableSubmitButton);
 $('#body-input').on('keyup', enableSubmitButton);
 $('.save-btn').on('click', createNewCard);
 $('#search-input').on('keyup', searchCards);
-$('.completed-tasks-button').on('click', prependCompletedTasks);
-//event listeners on bottom half of the page
+$('.completed-tasks-button').on('click', showCompletedTasks);
 $('.bottom-box').on('click', deleteCard); 
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
@@ -147,6 +144,18 @@ function completeTheTask(event) {
   card.completedTask = true;
   localStoreCard(card);
 
+}
+}
+
+function showCompletedTasks() {
+  for (var i=0; i < localStorage.length; i++) {
+  var cardId = localStorage.key(i);
+  var retrievedCardFromJson = localStorage.getItem(cardId);
+  var parsedCardObject = JSON.parse(retrievedCardFromJson);
+  if (parsedCardObject.completedTask === true) {
+  // var card = $(parsedCardObject).addClass('change-opacity');
+  addNewCard(parsedCardObject);
+  }
 }
 }
 
