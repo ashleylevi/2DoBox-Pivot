@@ -11,14 +11,16 @@ $('.bottom-box').on('click', deleteCard);
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
 $('#search-input').on('keyup', searchCards);
+$('.bottom-box').on('click', completeTheTask);
 
 //constructor function for all cards
 function CardObject(title, body) {
   this.title = title;
   this.body = body;
-  this.qualityArray = ['swill', 'plausible', 'genius'];
+  this.qualityArray = ['None', 'Low', 'Normal', 'High', 'Critical'];
   this.qualityIndex = 0;
   this.id = Date.now();
+  this.completedTask = false;
 };
 
 //create instance of idea card to add to the page
@@ -46,7 +48,7 @@ function addNewCard(card) {
   <p class="body-of-card" contenteditable="true" onfocusout="updateCardBody(event)">${card.body}</p>
   <button class="button upvote-button"></button>
   <button class="button downvote-button"></button>
-  <p class="quality">quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p>
+  <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="completed-task">Completed Task</button>
   <hr> 
   </div>`;
   $(".bottom-box").prepend(newCard);
@@ -65,7 +67,7 @@ function getAllCardsFromStorage(event) {
  for (var i=0; i < localStorage.length; i++) {
     var cardId = localStorage.key(i);
     var retrievedCardFromJson = localStorage.getItem(cardId);
-    var parsedCardObject= JSON.parse(retrievedCardFromJson);
+    var parsedCardObject = JSON.parse(retrievedCardFromJson);
     addNewCard(parsedCardObject);
   }
 };
@@ -83,9 +85,9 @@ function deleteCard(event) {
 function storeUpvoteQuality(event) {
   if ($(event.target).hasClass("upvote-button")) {
   var cardId = $(event.target).closest('.card-container')[0].id;
-  var card= JSON.parse(localStorage.getItem(cardId));
+  var card = JSON.parse(localStorage.getItem(cardId));
   card.qualityIndex++;
-  if (card.qualityIndex > 2 ) card.qualityIndex = 2;
+  if (card.qualityIndex > 4 ) card.qualityIndex = 4;
   $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
   localStoreCard(card)
   }
@@ -95,7 +97,7 @@ function storeUpvoteQuality(event) {
 function storeDownvoteQuality(event) {
   if ($(event.target).hasClass("downvote-button")){
   var cardId = $(event.target).closest('.card-container')[0].id;
-  var card= JSON.parse(localStorage.getItem(cardId));
+  var card = JSON.parse(localStorage.getItem(cardId));
   card.qualityIndex--;
   if (card.qualityIndex < 0 ) card.qualityIndex = 0;
   $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
@@ -134,4 +136,16 @@ function searchCards() {
     }
   }
 };
+
+function completeTheTask(event) {
+  if ($(event.target).hasClass('completed-task')) {
+  var cardId = $(event.target).closest('.card-container')[0].id;
+  var card = JSON.parse(localStorage.getItem(cardId));
+  $(event.target).closest('.card-container').addClass('change-opacity');
+  card.completedTask = true;
+  localStoreCard(card);
+
+}
+}
+
 
