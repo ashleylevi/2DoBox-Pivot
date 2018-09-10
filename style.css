@@ -183,6 +183,21 @@ span {
   opacity: 0.5;
 }
 
+.completed-tasks-button {
+  background-color: #305D96;
+  border: 1px solid black;
+  border-radius: 50px;
+  color: #FFF;
+  padding: 3px 5px 3px 5px;
+  width: 15%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.completed-tasks-button:hover {
+  background-color: #0B2C81;
+}
+
 
 @media(max-width: 640px){
 
