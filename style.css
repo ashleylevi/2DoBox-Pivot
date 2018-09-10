@@ -201,6 +201,11 @@ span {
   background-color: #0B2C81;
 }
 
+.more-todos-button:hover {
+  background-color: #0B2C81;
+
+}
+
 
 @media(max-width: 640px){
 
