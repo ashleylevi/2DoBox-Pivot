@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   font-family: 'Roboto Slab', serif;
 }
@@ -113,7 +114,6 @@ button {
   height: 20px;
   width: 20px;
   display: inline;
-
 }
 
 .upvote-button {
@@ -125,7 +125,6 @@ button {
   background-color: transparent;
   background-image: url(./images/upvote-hover.svg);
 }
-
 
 .downvote-button {
   background-image: url(./images/downvote.svg);
@@ -165,6 +164,23 @@ span {
 
 .hidden{
   display: none;
+}
+
+.completed-task {
+  background-color: #305D96;
+  border: 1px solid black;
+  border-radius: 50px;
+  color: #FFF;
+  float: right;
+  padding: 3px 5px 3px 5px;
+}
+
+.completed-task:hover {
+  background-color: #0B2C81;
+}
+
+.change-opacity {
+  opacity: 0.5;
 }
 
 
