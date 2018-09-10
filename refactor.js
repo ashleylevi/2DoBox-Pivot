@@ -48,7 +48,7 @@ function addNewCard(card) {
   <p class="body-of-card" contenteditable="true" onfocusout="updateCardBody(event)">${card.body}</p>
   <button class="button upvote-button"></button>
   <button class="button downvote-button"></button>
-  <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="completed-task">Completed Task</button>
+  <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="complete-task">Complete Task</button>
   <hr> 
   </div>`;
   $(".bottom-box").prepend(newCard);
@@ -138,7 +138,7 @@ function searchCards() {
 };
 
 function completeTheTask(event) {
-  if ($(event.target).hasClass('completed-task')) {
+  if ($(event.target).hasClass('complete-task')) {
   var cardId = $(event.target).closest('.card-container')[0].id;
   var card = JSON.parse(localStorage.getItem(cardId));
   $(event.target).closest('.card-container').addClass('change-opacity');
@@ -147,5 +147,17 @@ function completeTheTask(event) {
 
 }
 }
+
+// function hideCompletedTasks(event) {
+//   for (var i=0; i < localStorage.length; i++) {
+//     var cardId = localStorage.key(i);
+//     var retrievedCardFromJson = localStorage.getItem(cardId);
+//     var card = JSON.parse(retrievedCardFromJson);
+//     if (card.completedTask === true) {
+//       $(card).addClass('hidden');
+//     }
+
+// }
+
 
 
