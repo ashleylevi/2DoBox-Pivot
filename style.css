@@ -155,6 +155,7 @@ button {
 .quality {
   display: inline;
   font-family: 'Roboto Slab', serif;
+  font-weight: 400;
 }
 
 span {
@@ -184,11 +185,12 @@ span {
   opacity: 0.5;
 }
 
-.completed-tasks-button {
+.completed-tasks-button, .more-todos-button {
   background-color: #305D96;
   border: 1px solid black;
   border-radius: 50px;
   color: #FFF;
+  display: inline-block;
   padding: 3px 5px 3px 5px;
   width: 140px;
   margin: 0 auto;
