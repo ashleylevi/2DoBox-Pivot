@@ -4,13 +4,13 @@ getAllCardsFromStorage();
 //keyup event listener on input fields
 $('#title-input').on('keyup', enableSubmitButton);
 $('#body-input').on('keyup', enableSubmitButton);
-//click event listener on save button
 $('.save-btn').on('click', createNewCard);
-//event listener on bottom half of the page
+$('#search-input').on('keyup', searchCards);
+$('.completed-tasks-button').on('click', prependCompletedTasks);
+//event listeners on bottom half of the page
 $('.bottom-box').on('click', deleteCard); 
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
-$('#search-input').on('keyup', searchCards);
 $('.bottom-box').on('click', completeTheTask);
 
 //constructor function for all cards
@@ -68,7 +68,10 @@ function getAllCardsFromStorage(event) {
     var cardId = localStorage.key(i);
     var retrievedCardFromJson = localStorage.getItem(cardId);
     var parsedCardObject = JSON.parse(retrievedCardFromJson);
+    if (parsedCardObject.completedTask === false) {
     addNewCard(parsedCardObject);
+  }
+
   }
 };
 
@@ -127,7 +130,6 @@ function searchCards() {
   for (var i=0; i < allCards.length; i++) {
     var cardTitle = $(allCards[i]).children('.title-of-card').text().toLowerCase();
     var cardBody = $(allCards[i]).children('.body-of-card').text().toLowerCase();
-    console.log(cardTitle);
     if (cardTitle.includes(searchValue) || cardBody.includes(searchValue)){
       $(allCards[i]).removeClass('hidden');
     }
@@ -147,17 +149,5 @@ function completeTheTask(event) {
 
 }
 }
-
-// function hideCompletedTasks(event) {
-//   for (var i=0; i < localStorage.length; i++) {
-//     var cardId = localStorage.key(i);
-//     var retrievedCardFromJson = localStorage.getItem(cardId);
-//     var card = JSON.parse(retrievedCardFromJson);
-//     if (card.completedTask === true) {
-//       $(card).addClass('hidden');
-//     }
-
-// }
-
 
 
