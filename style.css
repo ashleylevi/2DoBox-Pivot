@@ -1,3 +1,4 @@
+/*Input section of the page*/
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -66,6 +67,7 @@ input {
   margin: auto;
 }
 
+/*output section of the page*/
 .card-container {
   margin: auto;
   position: relative;
@@ -185,14 +187,14 @@ span {
   opacity: 0.5;
 }
 
-.completed-tasks-button, .more-todos-button {
+.completed-tasks-button {
   background-color: #305D96;
   border: 1px solid black;
   border-radius: 50px;
   color: #FFF;
   display: inline-block;
   padding: 3px 5px 3px 5px;
-  width: 140px;
+  width: 160px;
   margin: 0 auto;
   margin-top: 15px;
 }
@@ -201,7 +203,24 @@ span {
   background-color: #0B2C81;
 }
 
-.more-todos-button:hover {
+.filter-buttons {
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.filter-button {
+  background-color: #305D96;
+  border: 1px solid black;
+  border-radius: 50px;
+  color: #FFF;
+  display: inline-block;
+  padding: 3px 5px 3px 5px;
+  width: 80px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.filter-button:hover {
   background-color: #0B2C81;
 
 }
