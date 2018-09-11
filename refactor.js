@@ -18,6 +18,7 @@ function CardObject(title, body) {
   this.qualityIndex = 0;
   this.id = Date.now();
   this.completedTask = false;
+  this.opacity = '';
 };
 
 //create instance of idea card to add to the page
@@ -39,7 +40,7 @@ function enableSubmitButton(event) {
 // create card to prepend to the page
 function addNewCard(card) {
   var newCard = `
-  <div id="${card.id}" class="card-container">
+  <div id="${card.id}" class="card-container ${card.opacity}">
   <h2 class="title-of-card" contenteditable="true" onfocusout="updateCardTitle(event)">${card.title}</h2>
   <button class="delete-button"></button>
   <p class="body-of-card" contenteditable="true" onfocusout="updateCardBody(event)">${card.body}</p>
@@ -67,8 +68,7 @@ function getAllCardsFromStorage(event) {
     var parsedCardObject = JSON.parse(retrievedCardFromJson);
     if (parsedCardObject.completedTask === false) {
     addNewCard(parsedCardObject);
-  }
-
+    }
   }
 };
 
@@ -140,12 +140,12 @@ function completeTheTask(event) {
   if ($(event.target).hasClass('complete-task')) {
   var cardId = $(event.target).closest('.card-container')[0].id;
   var card = JSON.parse(localStorage.getItem(cardId));
-  $(event.target).closest('.card-container').addClass('change-opacity');
-  card.completedTask = true;
+  changeOpacityProperty(card);
+  $(event.target).closest('.card-container').toggleClass('change-opacity');
+  card.completedTask = !card.completedTask;
   localStoreCard(card);
-
-}
-}
+  }
+};
 
 function showCompletedTasks() {
   for (var i=0; i < localStorage.length; i++) {
@@ -153,10 +153,19 @@ function showCompletedTasks() {
   var retrievedCardFromJson = localStorage.getItem(cardId);
   var parsedCardObject = JSON.parse(retrievedCardFromJson);
   if (parsedCardObject.completedTask === true) {
-  // var card = $(parsedCardObject).addClass('change-opacity');
   addNewCard(parsedCardObject);
+    }
   }
-}
-}
+};  
+
+function changeOpacityProperty(card) {
+  if (card.opacity === 'change-opacity') {
+    card.opacity = '';
+   } else {
+    card.opacity = 'change-opacity';
+  }
+};
+
+
 
 
