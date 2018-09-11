@@ -227,29 +227,43 @@ span {
 }
 
 
-@media(max-width: 640px){
+@media(max-width: 450px){
 
   .card-container {
-    width: 85%;
+    width: 350px;
+  }
+
+  #title-input, #body-input, #search-input {
+    width: 350px;
+  }
+
+  .save-btn {
+    width: 355px;
+  }
+
+  .filter-buttons {
+    width: 350px;
+    text-align: center;
   }
   
 }
 
-
-/*@media(max-width: 640px){
-
-  .card-container {
-    width: 400px;
+@media(max-width: 370px){
+   
+   .card-container {
+    width: 280px;
   }
 
-  input {
-    width: 400px;
+  #title-input, #body-input, #search-input {
+    width: 280px;
   }
 
   .save-btn {
-    width: 300px;
+    width: 285px;
   }
 
-
-
-}*/
+  .filter-buttons {
+    width: 280px;
+    text-align: center;
+  }
+}
