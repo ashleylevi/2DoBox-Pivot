@@ -5,11 +5,11 @@ $('#body-input').on('keyup', enableSubmitButton);
 $('.save-btn').on('click', createNewCard);
 $('#search-input').on('keyup', searchCards);
 $('.completed-tasks-button').on('click', showCompletedTasks);
-$('.none').on('click', filterByNone)
-$('.low').on('click', filterByLow)
-$('.normal').on('click', filterByNormal)
-$('.high').on('click', filterByHigh)
-$('.critical').on('click', filterByCritical)
+$('.none').on('click', filterByNone);
+$('.low').on('click', filterByLow);
+$('.normal').on('click', filterByNormal);
+$('.high').on('click', filterByHigh);
+$('.critical').on('click', filterByCritical);
 $('.bottom-box').on('click', deleteCard); 
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
@@ -68,7 +68,7 @@ function localStoreCard(card) {
 };
 
 // function to get all cards back from local storage
-function getAllCardsFromStorage() {
+function getAllCardsFromStorage(event) {
  for (var i=0; i < localStorage.length; i++) {
     var cardId = localStorage.key(i);
     var retrievedCardFromJson = localStorage.getItem(cardId);
@@ -172,44 +172,54 @@ function changeOpacityProperty(card) {
   }
 };
 
-function reAddCards (event) {
-  $('.card-container').remove();
-  getAllCardsFromStorage();
-  $(event).removeClass('hasBeenClicked');
-}
-
-function filterByNone(event) {
-  if ($(event.target).hasClass('hasBeenClicked')) {
-    reAddCards(event.target);
-  } else {
-    filterNone(event.target);
-  }
-}
-
-function filterNone (event) {
-  $(event).addClass('hasBeenClicked');
+function filterByNone() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    if (filterCard.qualityIndex === 0) {
-      addNewCard(filterCard);
-    }
+  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+  if (filterCard.qualityIndex === 0) {
+  addNewCard(filterCard);
   }
 }
+};
 
-function filterLow (event) {
-  $(event).addClass('hasBeenClicked');
+function filterByLow() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-    if (filterCard.qualityIndex === 1) {
-      addNewCard(filterCard);
-    }
+  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+  if (filterCard.qualityIndex === 1) {
+  addNewCard(filterCard);
   }
 }
+};
 
+function filterByNormal() {
+  $('.card-container').remove();
+  for (var i = 0; i < localStorage.length; i++) {
+  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+  if (filterCard.qualityIndex === 2) {
+  addNewCard(filterCard);
+  }
+}
+};
 
+function filterByHigh() {
+  $('.card-container').remove();
+  for (var i = 0; i < localStorage.length; i++) {
+  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+  if (filterCard.qualityIndex === 3) {
+  addNewCard(filterCard);
+  }
+}
+};
 
-
+function filterByCritical() {
+  $('.card-container').remove();
+  for (var i = 0; i < localStorage.length; i++) {
+  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+  if (filterCard.qualityIndex === 4) {
+  addNewCard(filterCard);
+  }
+}
+};
 
 
