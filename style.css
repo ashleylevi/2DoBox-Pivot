@@ -1,3 +1,4 @@
+/*Input section of the page*/
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -66,6 +67,7 @@ input {
   margin: auto;
 }
 
+/*output section of the page*/
 .card-container {
   margin: auto;
   position: relative;

@@ -5,6 +5,7 @@ $('#body-input').on('keyup', enableSubmitButton);
 $('.save-btn').on('click', createNewCard);
 $('#search-input').on('keyup', searchCards);
 $('.completed-tasks-button').on('click', showCompletedTasks);
+$('.none').on('click', filterByNone)
 $('.bottom-box').on('click', deleteCard); 
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
@@ -44,9 +45,9 @@ function addNewCard(card) {
   <h2 class="title-of-card" contenteditable="true" onfocusout="updateCardTitle(event)">${card.title}</h2>
   <button class="delete-button"></button>
   <p class="body-of-card" contenteditable="true" onfocusout="updateCardBody(event)">${card.body}</p>
-  <button class="button upvote-button"></button>
-  <button class="button downvote-button"></button>
-  <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="complete-task">Complete Task</button>
+  <button class="button upvote-button" aria-label="click to upvote a to-do"></button>
+  <button class="button downvote-button" aria-label="click to downvote a to-do"></button>
+  <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="complete-task" aria-label="click to complete task">Complete ToDo</button>
   <hr> 
   </div>`;
   $(".bottom-box").prepend(newCard);
@@ -127,10 +128,9 @@ function searchCards() {
   for (var i=0; i < allCards.length; i++) {
     var cardTitle = $(allCards[i]).children('.title-of-card').text().toLowerCase();
     var cardBody = $(allCards[i]).children('.body-of-card').text().toLowerCase();
-    if (cardTitle.includes(searchValue) || cardBody.includes(searchValue)){
+    if (cardTitle.includes(searchValue) || cardBody.includes(searchValue)) {
       $(allCards[i]).removeClass('hidden');
-    }
-    else {
+    } else {
       $(allCards[i]).addClass('hidden')
     }
   }
@@ -165,6 +165,21 @@ function changeOpacityProperty(card) {
     card.opacity = 'change-opacity';
   }
 };
+
+function filterByNone(card) {
+  var allCards = $('.card-container');
+  for (var i=0; i < allCards.length; i++) {
+    // var cardId = $(event.target).closest('.card-container')[0].id;
+    // var card = JSON.parse(localStorage.getItem(cardId));
+    if (card.qualityIndex === 0) {
+      $(allCards[i]).removeClass('hidden');
+    } else {
+      $(allCards[i]).addClass('hidden')
+    }
+  }
+
+
+}
 
 
 
