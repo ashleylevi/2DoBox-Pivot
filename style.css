@@ -14,7 +14,6 @@ body {
 .top-box {
   background-color: #B5C4DD;
   box-sizing: border-box;
- /* height: 300px;*/
   margin: 0;
   text-align: center;
 }
@@ -52,17 +51,18 @@ h1{
   color: #fff;
   font-size: 120%;
   height: 30px;
-  margin-top: 10px;
+  margin: 10px 0 25px 0;
   width: 405px;
+}
+
+.save-btn:hover {
+  background-color: #0B2C81;
 }
 
 #search-input {
   height: 30px;
-  margin-top: 50px;
+  margin-top: 30px;
   width: 400px;
-}
-.save-btn:hover {
-  background-color: #0B2C81;
 }
 
 input {
@@ -194,16 +194,19 @@ span {
   opacity: 0.5;
 }
 
-.completed-tasks-button {
+.completed-tasks-button, .filter-button {
   background-color: #305D96;
   border: 1px solid black;
   border-radius: 50px;
   color: #FFF;
   display: inline-block;
-  padding: 3px 5px 3px 5px;
-  width: 160px;
   margin: 0 auto;
   margin-top: 15px;
+  padding: 3px 5px 3px 5px;
+}
+
+.completed-tasks-button {
+  width: 160px;
 }
 
 .completed-tasks-button:hover {
@@ -216,20 +219,11 @@ span {
 }
 
 .filter-button {
-  background-color: #305D96;
-  border: 1px solid black;
-  border-radius: 50px;
-  color: #FFF;
-  display: inline-block;
-  padding: 3px 5px 3px 5px;
   width: 80px;
-  margin: 0 auto;
-  margin-top: 15px;
 }
 
 .filter-button:hover {
   background-color: #0B2C81;
-
 }
 
 

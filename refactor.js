@@ -52,7 +52,7 @@ function addNewCard(card) {
   <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="complete-task" aria-label="click to complete task">Complete ToDo</button>
   <hr> 
   </div>`;
-  $(".bottom-box").prepend(newCard);
+  $('.bottom-box').prepend(newCard);
   localStoreCard(card);
   $('form')[0].reset();
 };
@@ -77,7 +77,7 @@ function getAllCardsFromStorage(event) {
 
 //function to delete card
 function deleteCard(event) {
-  if ($(event.target).hasClass("delete-button")) {
+  if ($(event.target).hasClass('delete-button')) {
     var cardContainer = $(event.target).closest('.card-container').remove();
     var cardId = cardContainer[0].id
     localStorage.removeItem(cardId);
@@ -86,7 +86,7 @@ function deleteCard(event) {
 
 // function to update quality on upvote
 function storeUpvoteQuality(event) {
-  if ($(event.target).hasClass("upvote-button")) {
+  if ($(event.target).hasClass('upvote-button')) {
   var cardId = $(event.target).closest('.card-container')[0].id;
   var card = JSON.parse(localStorage.getItem(cardId));
   card.qualityIndex++;
@@ -98,7 +98,7 @@ function storeUpvoteQuality(event) {
 
 // function to update quality on downvote
 function storeDownvoteQuality(event) {
-  if ($(event.target).hasClass("downvote-button")){
+  if ($(event.target).hasClass('downvote-button')){
   var cardId = $(event.target).closest('.card-container')[0].id;
   var card = JSON.parse(localStorage.getItem(cardId));
   card.qualityIndex--;
@@ -168,12 +168,14 @@ function changeOpacityProperty(card) {
   }
 };
 
-function filterByNone(card) {
+function filterByNone() {
   var allCards = $('.card-container');
-  for (var i=0; i < allCards.length; i++) {
-    // var cardId = $(event.target).closest('.card-container')[0].id;
+  for (var i = 0; i < allCards.length; i++) {
+    var cardQuality = $(allCards[i]).qualityIndex;
+    // var cardQuality = $(allCards[i]).('.quality').children().text(card.qualityArray[card.qualityIndex])
+    // var cardId = $(allCards[i]).children('.quality').text(card.qualityArray[card.qualityIndex])
     // var card = JSON.parse(localStorage.getItem(cardId));
-    if (card.qualityIndex === 0) {
+    if ($(allCards[i]).qualityIndex === 0) {
       $(allCards[i]).removeClass('hidden');
     } else {
       $(allCards[i]).addClass('hidden')
