@@ -6,6 +6,10 @@ $('.save-btn').on('click', createNewCard);
 $('#search-input').on('keyup', searchCards);
 $('.completed-tasks-button').on('click', showCompletedTasks);
 $('.none').on('click', filterByNone)
+$('.low').on('click', filterByLow)
+$('.normal').on('click', filterByNormal)
+$('.high').on('click', filterByHigh)
+$('.critical').on('click', filterByCritical)
 $('.bottom-box').on('click', deleteCard); 
 $('.bottom-box').on('click', storeUpvoteQuality);
 $('.bottom-box').on('click', storeDownvoteQuality);
@@ -64,7 +68,7 @@ function localStoreCard(card) {
 };
 
 // function to get all cards back from local storage
-function getAllCardsFromStorage(event) {
+function getAllCardsFromStorage() {
  for (var i=0; i < localStorage.length; i++) {
     var cardId = localStorage.key(i);
     var retrievedCardFromJson = localStorage.getItem(cardId);
@@ -168,20 +172,42 @@ function changeOpacityProperty(card) {
   }
 };
 
-function filterByNone() {
-  var allCards = $('.card-container');
-  for (var i = 0; i < allCards.length; i++) {
-    var cardQuality = $(allCards[i]).qualityIndex;
-    // var cardQuality = $(allCards[i]).('.quality').children().text(card.qualityArray[card.qualityIndex])
-    // var cardId = $(allCards[i]).children('.quality').text(card.qualityArray[card.qualityIndex])
-    // var card = JSON.parse(localStorage.getItem(cardId));
-    if ($(allCards[i]).qualityIndex === 0) {
-      $(allCards[i]).removeClass('hidden');
-    } else {
-      $(allCards[i]).addClass('hidden')
+function reAddCards (event) {
+  $('.card-container').remove();
+  getAllCardsFromStorage();
+  $(event).removeClass('hasBeenClicked');
+}
+
+function filterByNone(event) {
+  if ($(event.target).hasClass('hasBeenClicked')) {
+    reAddCards(event.target);
+  } else {
+    filterNone(event.target);
+  }
+}
+
+function filterNone (event) {
+  $(event).addClass('hasBeenClicked');
+  $('.card-container').remove();
+  for (var i = 0; i < localStorage.length; i++) {
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 0) {
+      addNewCard(filterCard);
     }
   }
-};
+}
+
+function filterLow (event) {
+  $(event).addClass('hasBeenClicked');
+  $('.card-container').remove();
+  for (var i = 0; i < localStorage.length; i++) {
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 1) {
+      addNewCard(filterCard);
+    }
+  }
+}
+
 
 
 
