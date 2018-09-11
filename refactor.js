@@ -33,8 +33,10 @@ function createNewCard(event) {
 function enableSubmitButton(event) {
   if ($('#title-input').val() === "" || $('#body-input').val() === "") {
        $('.save-btn').prop('disabled', true);
+       $('.alert-user').text('Requried Field')
   } else {
     $('.save-btn').prop('disabled', false);
+    $('.alert-user').text('')
   } 
 };
 
@@ -177,9 +179,8 @@ function filterByNone(card) {
       $(allCards[i]).addClass('hidden')
     }
   }
+};
 
-
-}
 
 
 

@@ -14,7 +14,7 @@ body {
 .top-box {
   background-color: #B5C4DD;
   box-sizing: border-box;
-  height: 300px;
+ /* height: 300px;*/
   margin: 0;
   text-align: center;
 }
@@ -35,14 +35,15 @@ h1{
   display: flex;
   height: 30px;
   justify-content: space-between;
+  margin-top: 10px;
   width: 400px;
 }
 
-
-#search-input {
-  height: 30px;
-  margin-top: 50px;
-  width: 400px;
+.alert-user {
+  color: black;
+  display: inline;
+  font-size: 10px;
+  margin-bottom: 10px;
 }
 
 .save-btn {
@@ -51,9 +52,15 @@ h1{
   color: #fff;
   font-size: 120%;
   height: 30px;
+  margin-top: 10px;
   width: 405px;
 }
 
+#search-input {
+  height: 30px;
+  margin-top: 50px;
+  width: 400px;
+}
 .save-btn:hover {
   background-color: #0B2C81;
 }
