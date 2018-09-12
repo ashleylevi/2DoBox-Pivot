@@ -112,6 +112,7 @@ function storeDownvoteQuality(event) {
   }
 };
 
+// targets the event of the updateCardTitle input in the newCard function according to its specific card ID and changes the text to its new value. Then puts it back in local storage
 function updateCardTitle(event) {
   var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
   var updatedTitle = $(event.target).text();
@@ -120,6 +121,7 @@ function updateCardTitle(event) {
 
 };
 
+// targets the event of the updateCardBody input in the newCard function according to its specific card ID and changes the text to its new value. Then puts it back in local storage
 function updateCardBody(event) {
   var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
   var updatedBody = $(event.target).text();
@@ -128,6 +130,7 @@ function updateCardBody(event) {
 
 };
 
+// Looks through all the cards on the DOM and changes their input values to lower case. Then takes all the cards that correspont to the value of the search input and removes a class of hidden so it appears on the DOM, and adds a class of hidden to cards that do not have the search values, hiding them from the DOM, thus only showing us cards with the correct search values.
 function searchCards() {
   var searchValue = $('#search-input').val().toLowerCase();
   var allCards = $('.card-container');
@@ -142,6 +145,7 @@ function searchCards() {
   }
 };
 
+// Targets the event of the card that has the complete-task class and contains the ID of the parent container, gets the item from local storage and parses it, then canges the opacity using the changeOpacityProperty function, toggles completed task to be either true or false in local storage, then stores card with new properties in local storage.
 function completeTheTask(event) {
   if ($(event.target).hasClass('complete-task')) {
   var cardId = $(event.target).closest('.card-container')[0].id;
@@ -153,6 +157,7 @@ function completeTheTask(event) {
   }
 };
 
+// Loops through local storage looking at all card IDs, gets the cards from local storage and parses them, and if the card object has a property of completedTask true, it adds only those cards to the DOM
 function showCompletedTasks() {
   for (var i=0; i < localStorage.length; i++) {
   var cardId = localStorage.key(i);
@@ -162,8 +167,9 @@ function showCompletedTasks() {
   addNewCard(parsedCardObject);
     }
   }
-};  
+};
 
+// if the card object has a value of change-opacity, change the value to an empty string. If the object has a value of an empty string, change its value to change-opacity.
 function changeOpacityProperty(card) {
   if (card.opacity === 'change-opacity') {
     card.opacity = '';
@@ -172,6 +178,7 @@ function changeOpacityProperty(card) {
   }
 };
 
+// remove all cards from the DOM. Loop through local storage. If the card's object's qualityIndex has a value of 0, add the cards onto the DOM
 function filterByNone() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
@@ -182,6 +189,7 @@ function filterByNone() {
 }
 };
 
+// remove all cards from the DOM. Loop through local storage. If the card's object's qualityIndex has a value of 1, add the cards onto the DOM
 function filterByLow() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
@@ -192,6 +200,7 @@ function filterByLow() {
 }
 };
 
+// remove all cards from the DOM. Loop through local storage. If the card's object's qualityIndex has a value of 1, add the cards onto the DOM
 function filterByNormal() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
@@ -202,6 +211,7 @@ function filterByNormal() {
 }
 };
 
+// remove all cards from the DOM. Loop through local storage. If the card's object's qualityIndex has a value of 3, add the cards onto the DOM
 function filterByHigh() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
@@ -212,6 +222,7 @@ function filterByHigh() {
 }
 };
 
+// remove all cards from the DOM. Loop through local storage. If the card's object's qualityIndex has a value of 4, add the cards onto the DOM
 function filterByCritical() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
