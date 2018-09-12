@@ -194,7 +194,7 @@ span {
   opacity: 0.5;
 }
 
-.completed-tasks-button, .filter-button {
+.completed-tasks-button {
   background-color: #305D96;
   border: 1px solid black;
   border-radius: 50px;
@@ -219,11 +219,18 @@ span {
 }
 
 .filter-button {
+  background-color: #6d6e71;
+  border: 1px solid black;
+  color: #FFF;
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 3px 5px 3px 5px;
   width: 80px;
 }
 
 .filter-button:hover {
-  background-color: #0B2C81;
+  background-color: #404040;
 }
 
 
