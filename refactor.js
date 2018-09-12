@@ -56,6 +56,7 @@ function addNewCard(card) {
   <p class="quality">Quality: <span class="qualityVariable">${card.qualityArray[card.qualityIndex]}</span></p><button class="complete-task" aria-label="click to complete task">Complete ToDo</button>
   <hr> 
   </div>`;
+   hideToDos(card)
   $('.bottom-box').prepend(newCard);
   localStoreCard(card);
   $('form')[0].reset();
@@ -220,6 +221,20 @@ function filterByCritical() {
   addNewCard(filterCard);
   }
 }
+};
+
+function hideToDos() {
+  if ($('.card-container').length === 10) {
+    $('.card-container').slice(10).hide();
+    $('.bottom-box').append(`<button class="show">Show All ToDos</button>`)
+  } else if ($('.card-container').length > 10) {
+    $('.card-container').slice(10).hide();
+    $('.show').on('click', showAll)
+  }
+};
+
+function showAll(event) {
+  $('.card-container').show();
 };
 
 

@@ -233,6 +233,15 @@ span {
   background-color: #404040;
 }
 
+.show {
+  width: 150px;
+  background-color: #6d6e71;
+  border: 1px solid black;
+  color: #FFF;
+  margin: 20px 0px 20px 460px;
+  /*margin: 0 auto;*/
+}
+
 
 @media(max-width: 450px){
 
