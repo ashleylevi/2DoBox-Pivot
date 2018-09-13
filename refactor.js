@@ -33,7 +33,6 @@ function createNewCard(event) {
   addNewCard(card);
 };
 
-//enable submit button if both input fields are filled out
 function enableSubmitButton(event) {
   if ($('#title-input').val() === "" || $('#body-input').val() === "") {
        $('.save-btn').prop('disabled', true);
@@ -44,7 +43,6 @@ function enableSubmitButton(event) {
   } 
 };
 
-// create card to prepend to the page
 function addNewCard(card) {
   var newCard = `
   <div id="${card.id}" class="card-container ${card.opacity}">
@@ -61,13 +59,11 @@ function addNewCard(card) {
   $('form')[0].reset();
 };
 
-//function to store newly added card to local storage
 function localStoreCard(card) {
   var cardString = JSON.stringify(card);
   localStorage.setItem(card.id, cardString)
 };
 
-// function to get all cards back from local storage
 function getAllCardsFromStorage(event) {
  for (var i=0; i < localStorage.length; i++) {
     var cardId = localStorage.key(i);
@@ -79,7 +75,6 @@ function getAllCardsFromStorage(event) {
   }
 };
 
-//function to delete card
 function deleteCard(event) {
   if ($(event.target).hasClass('delete-button')) {
     var cardContainer = $(event.target).closest('.card-container').remove();
@@ -88,7 +83,6 @@ function deleteCard(event) {
   }
 };
 
-// function to update quality on upvote
 function storeUpvoteQuality(event) {
   if ($(event.target).hasClass('upvote-button')) {
   var cardId = $(event.target).closest('.card-container')[0].id;
@@ -100,7 +94,6 @@ function storeUpvoteQuality(event) {
   }
 };
 
-// function to update quality on downvote
 function storeDownvoteQuality(event) {
   if ($(event.target).hasClass('downvote-button')){
   var cardId = $(event.target).closest('.card-container')[0].id;
@@ -117,7 +110,6 @@ function updateCardTitle(event) {
   var updatedTitle = $(event.target).text();
   card.title = updatedTitle;
   localStoreCard(card);
-
 };
 
 function updateCardBody(event) {
@@ -125,7 +117,6 @@ function updateCardBody(event) {
   var updatedBody = $(event.target).text();
   card.body = updatedBody;
   localStoreCard(card);
-
 };
 
 function searchCards() {
@@ -137,7 +128,7 @@ function searchCards() {
     if (cardTitle.includes(searchValue) || cardBody.includes(searchValue)) {
       $(allCards[i]).removeClass('hidden');
     } else {
-      $(allCards[i]).addClass('hidden')
+      $(allCards[i]).addClass('hidden');
     }
   }
 };

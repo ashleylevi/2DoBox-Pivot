@@ -233,7 +233,7 @@ span {
   background-color: #404040;
 }
 
-
+/*media queries*/
 @media(max-width: 450px){
 
   .card-container {
