@@ -24,24 +24,24 @@ function CardObject(title, body) {
   this.id = Date.now();
   this.completedTask = false;
   this.opacity = '';
-};
+}
 
 //create instance of idea card to add to the page
 function createNewCard(event) {
   event.preventDefault();
   var card = new CardObject($('#title-input').val(), $('#body-input').val())
   addNewCard(card);
-};
+}
 
-function enableSubmitButton(event) {
+function enableSubmitButton() {
   if ($('#title-input').val() === "" || $('#body-input').val() === "") {
-       $('.save-btn').prop('disabled', true);
-       $('.alert-user').text('Requried Field')
+    $('.save-btn').prop('disabled', true);
+    $('.alert-user').text('Requried Field')
   } else {
     $('.save-btn').prop('disabled', false);
     $('.alert-user').text('')
   } 
-};
+}
 
 function addNewCard(card) {
   var newCard = `
@@ -57,23 +57,24 @@ function addNewCard(card) {
   $('.bottom-box').prepend(newCard);
   localStoreCard(card);
   $('form')[0].reset();
-};
+  enableSubmitButton();
+}
 
 function localStoreCard(card) {
   var cardString = JSON.stringify(card);
   localStorage.setItem(card.id, cardString)
-};
+}
 
-function getAllCardsFromStorage(event) {
- for (var i=0; i < localStorage.length; i++) {
+function getAllCardsFromStorage() {
+  for (var i=0; i < localStorage.length; i++) {
     var cardId = localStorage.key(i);
     var retrievedCardFromJson = localStorage.getItem(cardId);
     var parsedCardObject = JSON.parse(retrievedCardFromJson);
     if (parsedCardObject.completedTask === false) {
-    addNewCard(parsedCardObject);
+      addNewCard(parsedCardObject);
     }
   }
-};
+}
 
 function deleteCard(event) {
   if ($(event.target).hasClass('delete-button')) {
@@ -81,43 +82,47 @@ function deleteCard(event) {
     var cardId = cardContainer[0].id
     localStorage.removeItem(cardId);
   }
-};
+}
 
 function storeUpvoteQuality(event) {
   if ($(event.target).hasClass('upvote-button')) {
-  var cardId = $(event.target).closest('.card-container')[0].id;
-  var card = JSON.parse(localStorage.getItem(cardId));
-  card.qualityIndex++;
-  if (card.qualityIndex > 4 ) card.qualityIndex = 4;
-  $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
-  localStoreCard(card)
+    var cardId = $(event.target).closest('.card-container')[0].id;
+    var card = JSON.parse(localStorage.getItem(cardId));
+    card.qualityIndex++;
+    if (card.qualityIndex > 4 ) {
+      card.qualityIndex = 4;
+      $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
+      localStoreCard(card)
+    }
   }
-};
+}
 
 function storeDownvoteQuality(event) {
-  if ($(event.target).hasClass('downvote-button')){
-  var cardId = $(event.target).closest('.card-container')[0].id;
-  var card = JSON.parse(localStorage.getItem(cardId));
-  card.qualityIndex--;
-  if (card.qualityIndex < 0 ) card.qualityIndex = 0;
-  $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
-  localStoreCard(card)
+  if ($(event.target).hasClass('downvote-button')) {
+    var cardId = $(event.target).closest('.card-container')[0].id;
+    var card = JSON.parse(localStorage.getItem(cardId));
+    card.qualityIndex--;
+    if (card.qualityIndex < 0 ) {
+      card.qualityIndex = 0;
+      $(event.target).siblings('.quality').children().text(card.qualityArray[card.qualityIndex]);
+      localStoreCard(card)
+    }
   }
-};
+}
 
 function updateCardTitle(event) {
   var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
   var updatedTitle = $(event.target).text();
   card.title = updatedTitle;
   localStoreCard(card);
-};
+}
 
 function updateCardBody(event) {
   var card = JSON.parse(localStorage.getItem($(event.target).closest('.card-container')[0].id));
   var updatedBody = $(event.target).text();
   card.body = updatedBody;
   localStoreCard(card);
-};
+}
 
 function searchCards() {
   var searchValue = $('#search-input').val().toLowerCase();
@@ -131,86 +136,84 @@ function searchCards() {
       $(allCards[i]).addClass('hidden');
     }
   }
-};
+}
 
 function completeTheTask(event) {
   if ($(event.target).hasClass('complete-task')) {
-  var cardId = $(event.target).closest('.card-container')[0].id;
-  var card = JSON.parse(localStorage.getItem(cardId));
-  changeOpacityProperty(card);
-  $(event.target).closest('.card-container').toggleClass('change-opacity');
-  card.completedTask = !card.completedTask;
-  localStoreCard(card);
+    var cardId = $(event.target).closest('.card-container')[0].id;
+    var card = JSON.parse(localStorage.getItem(cardId));
+    changeOpacityProperty(card);
+    $(event.target).closest('.card-container').toggleClass('change-opacity');
+    card.completedTask = !card.completedTask;
+    localStoreCard(card);
   }
-};
+}
 
 function showCompletedTasks() {
   for (var i=0; i < localStorage.length; i++) {
-  var cardId = localStorage.key(i);
-  var retrievedCardFromJson = localStorage.getItem(cardId);
-  var parsedCardObject = JSON.parse(retrievedCardFromJson);
-  if (parsedCardObject.completedTask === true) {
-  addNewCard(parsedCardObject);
+    var cardId = localStorage.key(i);
+    var retrievedCardFromJson = localStorage.getItem(cardId);
+    var parsedCardObject = JSON.parse(retrievedCardFromJson);
+    if (parsedCardObject.completedTask === true) {
+      addNewCard(parsedCardObject);
     }
   }
-};  
+}  
 
 function changeOpacityProperty(card) {
   if (card.opacity === 'change-opacity') {
     card.opacity = '';
-   } else {
+  } else {
     card.opacity = 'change-opacity';
   }
-};
+}
 
 function filterByNone() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-  if (filterCard.qualityIndex === 0) {
-  addNewCard(filterCard);
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 0) {
+      addNewCard(filterCard);
+    }
   }
 }
-};
 
 function filterByLow() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-  if (filterCard.qualityIndex === 1) {
-  addNewCard(filterCard);
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 1) {
+      addNewCard(filterCard);
+    }
   }
 }
-};
 
 function filterByNormal() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-  if (filterCard.qualityIndex === 2) {
-  addNewCard(filterCard);
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 2) {
+      addNewCard(filterCard);
+    }
   }
 }
-};
 
 function filterByHigh() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-  if (filterCard.qualityIndex === 3) {
-  addNewCard(filterCard);
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 3) {
+      addNewCard(filterCard);
+    }
   }
 }
-};
 
 function filterByCritical() {
   $('.card-container').remove();
   for (var i = 0; i < localStorage.length; i++) {
-  var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
-  if (filterCard.qualityIndex === 4) {
-  addNewCard(filterCard);
+    var filterCard = JSON.parse(localStorage.getItem(localStorage.key(i)))
+    if (filterCard.qualityIndex === 4) {
+      addNewCard(filterCard);
+    }
   }
 }
-};
-
-
